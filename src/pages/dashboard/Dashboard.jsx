@@ -20,12 +20,14 @@ import PaginaMetas from "./PaginaMetas";
 import PaginaRelatorios from "./PaginaRelatorios";
 import PaginaConfiguracoes from "./PaginaConfiguracoes";
 import PaginaFluxo from "./PaginaFluxo";
+import PaginaDiario from "./PaginaDiario";
 import Tutorial from "./Tutorial";
 import "./dashboard.css";
 
 // ── Definição das abas ────────────────────────────────────────────────────────
 
 const ABAS_DEFAULT = [
+  { id: "diario",         icone: "⊙", label: "Diário" },
   { id: "visao-geral",    icone: "▦", label: "Visão geral" },
   { id: "transacoes",     icone: "↕", label: "Transações" },
   { id: "lembretes",      icone: "◷", label: "Lembretes" },
@@ -35,6 +37,9 @@ const ABAS_DEFAULT = [
   { id: "relatorios",     icone: "▲", label: "Relatórios" },
   { id: "configuracoes",  icone: "⚙", label: "Configurações" },
 ];
+
+// Abas fixas na navbar mobile (as outras vão no "Mais")
+const ABAS_MOBILE_FIXAS = ["diario", "visao-geral", "transacoes"];
 
 function carregarAbas() {
   try {
@@ -130,6 +135,7 @@ export default function Dashboard() {
   const [tutorialAberto, setTutorialAberto] = useState(
     () => !localStorage.getItem("tutorial-completo")
   );
+  const [maisAberto, setMaisAberto] = useState(false);
 
   const relatorio = calcularRelatorio(transacoes);
 
@@ -167,6 +173,12 @@ export default function Dashboard() {
   function fecharModal() { setModalAberto(false); setTransacaoEditando(null); }
 
   const tituloAba = abas.find((a) => a.id === abaSelecionada)?.label ?? "";
+
+  const abasMobileFixas = ABAS_MOBILE_FIXAS
+    .map((id) => abas.find((a) => a.id === id))
+    .filter(Boolean);
+  const abasMobileExtras = abas.filter((a) => !ABAS_MOBILE_FIXAS.includes(a.id));
+  const abaAtualEhExtra = abasMobileExtras.some((a) => a.id === abaSelecionada);
 
   return (
     <div className="layout-dashboard">
@@ -268,6 +280,7 @@ export default function Dashboard() {
                 />
               </div>
             )}
+            {abaSelecionada === "diario" && <PaginaDiario transacoes={transacoes} aoAbrirModal={abrirModalNovo} />}
             {abaSelecionada === "fluxo" && <PaginaFluxo transacoes={transacoes} />}
             {abaSelecionada === "recomendacoes" && <PaginaRecomendacoes transacoes={transacoes} />}
             {abaSelecionada === "metas" && <PaginaMetas />}
@@ -279,7 +292,7 @@ export default function Dashboard() {
 
       {/* ── Navbar mobile ── */}
       <nav className="navbar-mobile">
-        {abas.slice(0, 4).map((aba) => (
+        {abasMobileFixas.slice(0, 2).map((aba) => (
           <button
             key={aba.id}
             className={`nav-mobile-item ${abaSelecionada === aba.id ? "ativo" : ""}`}
@@ -290,7 +303,7 @@ export default function Dashboard() {
           </button>
         ))}
         <button className="nav-mobile-fab" onClick={abrirModalNovo}>+</button>
-        {abas.slice(4).map((aba) => (
+        {abasMobileFixas.slice(2).map((aba) => (
           <button
             key={aba.id}
             className={`nav-mobile-item ${abaSelecionada === aba.id ? "ativo" : ""}`}
@@ -300,7 +313,34 @@ export default function Dashboard() {
             <span>{aba.label.split(" ")[0]}</span>
           </button>
         ))}
+        <button
+          className={`nav-mobile-item ${abaAtualEhExtra ? "ativo" : ""}`}
+          onClick={() => setMaisAberto(true)}
+        >
+          <span>⋯</span>
+          <span>Mais</span>
+        </button>
       </nav>
+
+      {/* ── Bottom sheet "Mais" ── */}
+      {maisAberto && (
+        <div className="overlay-mais" onClick={() => setMaisAberto(false)}>
+          <div className="sheet-mais" onClick={(e) => e.stopPropagation()}>
+            <div className="sheet-handle" />
+            <p className="sheet-titulo">Todas as abas</p>
+            {abasMobileExtras.map((aba) => (
+              <button
+                key={aba.id}
+                className={`sheet-item ${abaSelecionada === aba.id ? "ativo" : ""}`}
+                onClick={() => { setAbaSelecionada(aba.id); setMaisAberto(false); }}
+              >
+                <span className="sheet-item-icone">{aba.icone}</span>
+                <span>{aba.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {tutorialAberto && (
         <Tutorial

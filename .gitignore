@@ -20,6 +20,11 @@ dist-ssr
 # Claude Code (memória interna — não commitar)
 .claude/
 
+# Firebase CLI cache e Data Connect gerado
+.firebase/
+dataconnect/
+src/dataconnect-generated/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

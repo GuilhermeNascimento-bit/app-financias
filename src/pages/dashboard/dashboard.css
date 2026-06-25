@@ -808,19 +808,98 @@
 /* ── Navbar mobile ── */
 .navbar-mobile { display: none; }
 
+/* ── Bottom sheet "Mais" ── */
+.overlay-mais {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 60;
+  animation: fadeIn 0.2s ease;
+}
+
+.sheet-mais {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--cor-fundo-cartao);
+  border-radius: 20px 20px 0 0;
+  padding: 10px 16px 36px;
+  animation: slideUp 0.25s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+.sheet-handle {
+  width: 36px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--cor-borda);
+  margin: 0 auto 14px;
+}
+
+.sheet-titulo {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--cor-texto-secundario);
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  margin: 0 0 10px 4px;
+}
+
+.sheet-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 13px 12px;
+  border: none;
+  background: transparent;
+  color: var(--cor-texto-principal);
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: background 0.15s, color 0.15s;
+  text-align: left;
+}
+
+.sheet-item:hover { background: var(--cor-fundo-secao); }
+
+.sheet-item.ativo {
+  background: var(--cor-acento-fundo-suave);
+  color: var(--cor-acento);
+  font-weight: 600;
+}
+
+.sheet-item-icone {
+  font-size: 17px;
+  width: 22px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* ── Media queries ── */
 @media (max-width: 768px) {
   .sidebar { display: none; }
 
   .conteudo-dashboard {
-    padding: 20px 16px 80px;
+    padding: 16px 14px 84px;
   }
 
   .cabecalho-dashboard {
-    flex-direction: column;
-    gap: 12px;
-    align-items: stretch;
-    margin-bottom: 20px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    gap: 8px;
   }
+
+  .titulo-pagina { font-size: 18px; }
+  .subtitulo-pagina { display: none; }
 
   .botao-nova-transacao {
     display: none;
@@ -831,7 +910,9 @@
     gap: 10px;
   }
 
-  .card-saldo-valor { font-size: 18px; }
+  .card-saldo { padding: 14px 12px; }
+  .card-saldo-valor { font-size: 17px; }
+  .card-saldo-label { font-size: 10px; }
 
   .linha-graficos {
     grid-template-columns: 1fr;
@@ -840,15 +921,17 @@
   .navbar-mobile {
     display: flex;
     align-items: center;
+    justify-content: space-around;
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 64px;
+    height: 62px;
     background: var(--cor-fundo-cartao);
     border-top: 1px solid var(--cor-borda-cartao);
     z-index: 50;
-    padding: 0 8px;
+    padding: 0 4px;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 
   .nav-mobile-item {
@@ -857,40 +940,49 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 2px;
+    gap: 3px;
     border: none;
     background: transparent;
     color: var(--cor-texto-secundario);
     font-size: 10px;
+    font-weight: 500;
     cursor: pointer;
-    padding: 8px 4px;
+    padding: 6px 2px;
     border-radius: 10px;
     transition: color 0.15s ease;
+    min-width: 0;
   }
 
-  .nav-mobile-item span:first-child { font-size: 18px; }
-  .nav-mobile-item.ativo { color: var(--cor-acento); }
+  .nav-mobile-item span:first-child {
+    font-size: 19px;
+    line-height: 1;
+  }
+
+  .nav-mobile-item.ativo {
+    color: var(--cor-acento);
+  }
 
   .nav-mobile-fab {
-    width: 48px;
-    height: 48px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     border: none;
     background: var(--cor-acento);
     color: #fff;
-    font-size: 24px;
+    font-size: 26px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    box-shadow: 0 4px 12px rgba(29, 158, 117, 0.4);
+    box-shadow: 0 4px 14px rgba(29, 158, 117, 0.45);
     transition: transform 0.15s ease, box-shadow 0.15s ease;
+    line-height: 1;
+    margin-bottom: 2px;
   }
 
-  .nav-mobile-fab:hover {
-    transform: scale(1.08);
-    box-shadow: 0 6px 18px rgba(29, 158, 117, 0.5);
+  .nav-mobile-fab:active {
+    transform: scale(0.93);
   }
 }
 
@@ -901,4 +993,6 @@
 
   .item-transacao { gap: 8px; }
   .badge-status { display: none; }
+
+  .cartao-dashboard { padding: 14px; }
 }
