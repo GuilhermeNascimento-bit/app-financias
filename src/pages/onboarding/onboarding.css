@@ -401,6 +401,124 @@
   line-height: 1.4;
 }
 
+/* ── Etapa de recorrentes ── */
+
+.form-recorrente-ob {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.linha-recorrente-ob {
+  display: flex;
+  gap: 8px;
+}
+
+.linha-recorrente-ob .input-valor-wrapper {
+  flex: 2;
+}
+
+.input-dia-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: 44px;
+  border-radius: 10px;
+  border: 1px solid var(--cor-borda);
+  background: var(--cor-fundo-input);
+  padding: 0 12px;
+  box-sizing: border-box;
+  min-width: 0;
+  transition: border-color 0.15s ease;
+}
+
+.input-dia-wrapper:focus-within {
+  border-color: var(--cor-acento);
+  background: var(--cor-fundo-input-foco);
+}
+
+.prefixo-dia {
+  font-size: 13px;
+  color: var(--cor-texto-secundario);
+  margin-right: 6px;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.botao-adicionar-rec {
+  height: 42px;
+  border-radius: 10px;
+  border: 1px dashed var(--cor-acento);
+  background: var(--cor-acento-fundo-suave);
+  color: var(--cor-acento);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+}
+
+.botao-adicionar-rec:hover {
+  background: var(--cor-acento);
+  color: #fff;
+}
+
+.lista-rec-ob {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 4px;
+}
+
+.item-rec-ob {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--cor-fundo-secao);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.item-rec-seta {
+  font-size: 15px;
+  font-weight: 700;
+  flex-shrink: 0;
+  width: 22px;
+  text-align: center;
+}
+
+.item-rec-receita .item-rec-seta { color: var(--cor-acento); }
+.item-rec-despesa .item-rec-seta { color: #d85a30; }
+
+.item-rec-texto {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.item-rec-nome {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--cor-texto-principal);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.item-rec-sub {
+  font-size: 11.5px;
+  color: var(--cor-texto-secundario);
+}
+
+.item-rec-valor {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cor-texto-principal);
+  flex-shrink: 0;
+}
+
 @media (max-width: 380px) {
   .linha-item {
     flex-wrap: wrap;

@@ -2,15 +2,17 @@ import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useMoeda } from "../../context/MoedaContext";
 import { adicionarTransacao } from "../../firebase/transacoes";
+import { adicionarRecorrente } from "../../firebase/recorrentes";
 import EtapaBoasVindas from "./EtapaBoasVindas";
 import EtapaMoeda from "./EtapaMoeda";
 import EtapaRenda from "./EtapaRenda";
 import EtapaDespesasFixas from "./EtapaDespesasFixas";
 import EtapaDespesasVariaveis from "./EtapaDespesasVariaveis";
+import EtapaRecorrentes from "./EtapaRecorrentes";
 import EtapaResumo from "./EtapaResumo";
 import "./onboarding.css";
 
-const TOTAL_ETAPAS = 6;
+const TOTAL_ETAPAS = 7;
 
 export default function OnboardingWizard({ aoConcluir }) {
   const { usuario } = useAuth();
@@ -25,6 +27,7 @@ export default function OnboardingWizard({ aoConcluir }) {
     renda: [],
     despesasFixas: [],
     despesasVariaveis: [],
+    recorrentes: [],
   });
 
   function avancar() {
@@ -60,6 +63,16 @@ export default function OnboardingWizard({ aoConcluir }) {
           data: hoje,
           valor: transacao.valor,
           status: "pago",
+        });
+      }
+
+      for (const rec of dados.recorrentes) {
+        await adicionarRecorrente(usuario.uid, {
+          nome: rec.nome,
+          tipo: rec.tipo,
+          valor: rec.valor,
+          dia: rec.dia,
+          formaPagamento: rec.formaPagamento,
         });
       }
 
@@ -101,6 +114,13 @@ export default function OnboardingWizard({ aoConcluir }) {
       key="despesas-variaveis"
       valoresIniciais={dados.despesasVariaveis}
       aoAvancar={(valores) => { atualizarDados("despesasVariaveis", valores); avancar(); }}
+      aoVoltar={voltar}
+    />,
+
+    <EtapaRecorrentes
+      key="recorrentes"
+      valoresIniciais={dados.recorrentes}
+      aoAvancar={(valores) => { atualizarDados("recorrentes", valores); avancar(); }}
       aoVoltar={voltar}
     />,
 
