@@ -136,6 +136,7 @@ export default function Dashboard() {
     () => !localStorage.getItem("tutorial-completo")
   );
   const [maisAberto, setMaisAberto] = useState(false);
+  const [tipoModalInicial, setTipoModalInicial] = useState("despesa");
 
   const relatorio = calcularRelatorio(transacoes);
 
@@ -168,7 +169,7 @@ export default function Dashboard() {
     setTutorialAberto(false);
   }
 
-  function abrirModalNovo() { setTransacaoEditando(null); setModalAberto(true); }
+  function abrirModalNovo(tipo = "despesa") { setTipoModalInicial(tipo); setTransacaoEditando(null); setModalAberto(true); }
   function abrirModalEditar(t) { setTransacaoEditando(t); setModalAberto(true); }
   function fecharModal() { setModalAberto(false); setTransacaoEditando(null); }
 
@@ -231,9 +232,11 @@ export default function Dashboard() {
               {new Date().toLocaleDateString("pt-BR", { month: "long", year: "numeric" })}
             </p>
           </div>
-          <button className="botao-nova-transacao" onClick={abrirModalNovo}>
-            + Nova transação
-          </button>
+          {["visao-geral", "transacoes", "lembretes"].includes(abaSelecionada) && (
+            <button className="botao-nova-transacao" onClick={() => abrirModalNovo("despesa")}>
+              + Nova transação
+            </button>
+          )}
         </header>
 
         {carregando ? (
@@ -253,15 +256,6 @@ export default function Dashboard() {
                     <GraficoPizza despesas={relatorio.despesas} />
                   </div>
                 </div>
-                <div className="cartao-dashboard">
-                  <h3 className="titulo-cartao">Transações recentes</h3>
-                  <ListaTransacoes
-                    transacoes={transacoes.slice(0, 5)}
-                    uid={usuario.uid}
-                    aoEditar={abrirModalEditar}
-                    resumido
-                  />
-                </div>
               </div>
             )}
             {abaSelecionada === "transacoes" && (
@@ -280,7 +274,7 @@ export default function Dashboard() {
                 />
               </div>
             )}
-            {abaSelecionada === "diario" && <PaginaDiario transacoes={transacoes} aoAbrirModal={abrirModalNovo} />}
+            {abaSelecionada === "diario" && <PaginaDiario transacoes={transacoes} aoAbrirComTipo={abrirModalNovo} />}
             {abaSelecionada === "fluxo" && <PaginaFluxo transacoes={transacoes} />}
             {abaSelecionada === "recomendacoes" && <PaginaRecomendacoes transacoes={transacoes} />}
             {abaSelecionada === "metas" && <PaginaMetas />}
@@ -354,6 +348,7 @@ export default function Dashboard() {
           uid={usuario.uid}
           transacao={transacaoEditando}
           aoFechar={fecharModal}
+          tipoInicial={tipoModalInicial}
         />
       )}
     </div>

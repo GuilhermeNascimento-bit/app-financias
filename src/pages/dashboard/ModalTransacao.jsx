@@ -4,10 +4,10 @@ import { useMoeda } from "../../context/MoedaContext";
 
 const OPCOES_PARCELAS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
-export default function ModalTransacao({ uid, transacao, aoFechar }) {
+export default function ModalTransacao({ uid, transacao, aoFechar, tipoInicial = "despesa" }) {
   const editando = !!transacao;
 
-  const [tipo, setTipo] = useState(transacao?.tipo || "despesa");
+  const [tipo, setTipo] = useState(transacao?.tipo || tipoInicial);
   const [categoria, setCategoria] = useState(transacao?.categoria || "");
   const [valor, setValor] = useState(transacao?.valor || "");
   const [data, setData] = useState(

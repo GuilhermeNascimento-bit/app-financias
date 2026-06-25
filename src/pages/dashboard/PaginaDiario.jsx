@@ -31,27 +31,7 @@ function labelData(d) {
   return d.toLocaleDateString("pt-BR", { weekday: "short", day: "numeric", month: "short" });
 }
 
-function ItemTransacao({ t, fmt }) {
-  const d = normalizarData(t.data);
-  const isReceita = t.tipo === "receita";
-  return (
-    <div className={`di-item di-item-${t.tipo}`}>
-      <div className="di-icone">{isReceita ? "↑" : "↓"}</div>
-      <div className="di-info">
-        <span className="di-cat">{t.categoria}</span>
-        <span className="di-sub">
-          {t.status === "pago" ? "Pago" : t.status === "pendente" ? "Pendente" : t.status}
-          {t.formaPagamento === "credito" ? " · Crédito" : t.formaPagamento === "debito" ? " · Débito" : ""}
-        </span>
-      </div>
-      <span className={`di-valor ${isReceita ? "pos" : "neg"}`}>
-        {isReceita ? "+" : "−"}{fmt(t.valor)}
-      </span>
-    </div>
-  );
-}
-
-export default function PaginaDiario({ transacoes, aoAbrirModal }) {
+export default function PaginaDiario({ transacoes, aoAbrirComTipo }) {
   const { usuario } = useAuth();
   const { formatarValor: fmt } = useMoeda();
 
@@ -91,8 +71,7 @@ export default function PaginaDiario({ transacoes, aoAbrirModal }) {
     () =>
       transacoes.filter((t) => {
         if (t.status !== "pendente" || t.tipo !== "despesa") return false;
-        const d = normalizarData(t.data);
-        return d < hoje;
+        return normalizarData(t.data) < hoje;
       }),
     [transacoes, hoje]
   );
@@ -100,36 +79,45 @@ export default function PaginaDiario({ transacoes, aoAbrirModal }) {
   const entradasHoje = transacoesHoje
     .filter((t) => t.tipo === "receita" && t.status === "pago")
     .reduce((s, t) => s + t.valor, 0);
-
   const saidasHoje = transacoesHoje
     .filter((t) => t.tipo === "despesa" && t.status === "pago")
     .reduce((s, t) => s + t.valor, 0);
-
   const saldoHoje = entradasHoje - saidasHoje;
 
   const dataExibida = (() => {
-    const s = hoje.toLocaleDateString("pt-BR", {
-      weekday: "long", day: "numeric", month: "long",
-    });
+    const s = hoje.toLocaleDateString("pt-BR", { weekday: "long", day: "numeric", month: "long" });
     return s.charAt(0).toUpperCase() + s.slice(1);
   })();
 
   return (
     <div className="pagina-diario">
-      {/* ── Cabeçalho saudação ── */}
+
+      {/* ── Cabeçalho + ação rápida ── */}
       <div className="di-topo">
-        <p className="di-saudacao">{saudacao(usuario?.displayName)}</p>
-        <p className="di-data">{dataExibida}</p>
+        <div className="di-topo-texto">
+          <p className="di-saudacao">{saudacao(usuario?.displayName)}</p>
+          <p className="di-data">{dataExibida}</p>
+        </div>
+        <div className="di-acoes-rapidas">
+          <button className="di-btn-rapido di-btn-receita" onClick={() => aoAbrirComTipo("receita")}>
+            <span className="di-btn-icone">↑</span>
+            <span>Receita</span>
+          </button>
+          <button className="di-btn-rapido di-btn-despesa" onClick={() => aoAbrirComTipo("despesa")}>
+            <span className="di-btn-icone">↓</span>
+            <span>Despesa</span>
+          </button>
+        </div>
       </div>
 
-      {/* ── Cards de hoje ── */}
+      {/* ── Resumo do dia ── */}
       <div className="di-cards">
         <div className="di-card">
-          <span className="di-card-label">Entradas hoje</span>
+          <span className="di-card-label">Entradas</span>
           <span className="di-card-valor pos">{fmt(entradasHoje)}</span>
         </div>
         <div className="di-card">
-          <span className="di-card-label">Saídas hoje</span>
+          <span className="di-card-label">Saídas</span>
           <span className="di-card-valor neg">{fmt(saidasHoje)}</span>
         </div>
         <div className="di-card di-card-full">
@@ -142,19 +130,13 @@ export default function PaginaDiario({ transacoes, aoAbrirModal }) {
 
       {/* ── Atrasadas ── */}
       {atrasadas.length > 0 && (
-        <section className="di-secao">
-          <h3 className="di-secao-titulo di-titulo-alerta">
-            ⚠ {atrasadas.length} despesa{atrasadas.length > 1 ? "s" : ""} atrasada{atrasadas.length > 1 ? "s" : ""}
-          </h3>
-          <div className="di-lista">
-            {atrasadas.slice(0, 3).map((t) => (
-              <ItemTransacao key={t.id} t={t} fmt={fmt} />
-            ))}
-            {atrasadas.length > 3 && (
-              <p className="di-mais">+ {atrasadas.length - 3} mais</p>
-            )}
-          </div>
-        </section>
+        <div className="di-alerta">
+          <span className="di-alerta-icone">⚠</span>
+          <span>
+            {atrasadas.length} despesa{atrasadas.length > 1 ? "s" : ""} atrasada{atrasadas.length > 1 ? "s" : ""}
+            {" "}— {fmt(atrasadas.reduce((s, t) => s + t.valor, 0))} no total
+          </span>
+        </div>
       )}
 
       {/* ── Hoje ── */}
@@ -163,16 +145,28 @@ export default function PaginaDiario({ transacoes, aoAbrirModal }) {
         {transacoesHoje.length === 0 ? (
           <div className="di-vazio">
             <span className="di-vazio-icone">◷</span>
-            <p>Nenhuma transação registrada hoje</p>
-            <button className="di-btn-add" onClick={aoAbrirModal}>
-              + Registrar transação
-            </button>
+            <p>Nenhuma transação hoje</p>
           </div>
         ) : (
           <div className="di-lista">
-            {transacoesHoje.map((t) => (
-              <ItemTransacao key={t.id} t={t} fmt={fmt} />
-            ))}
+            {transacoesHoje.map((t) => {
+              const isReceita = t.tipo === "receita";
+              return (
+                <div key={t.id} className={`di-item di-item-${t.tipo}`}>
+                  <div className="di-icone">{isReceita ? "↑" : "↓"}</div>
+                  <div className="di-info">
+                    <span className="di-cat">{t.categoria}</span>
+                    <span className="di-sub">
+                      {t.status === "pago" ? "Pago" : "Pendente"}
+                      {t.formaPagamento === "credito" ? " · Crédito" : t.formaPagamento === "debito" ? " · Débito" : ""}
+                    </span>
+                  </div>
+                  <span className={`di-valor ${isReceita ? "pos" : "neg"}`}>
+                    {isReceita ? "+" : "−"}{fmt(t.valor)}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         )}
       </section>

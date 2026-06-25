@@ -8,27 +8,83 @@
   max-width: 600px;
 }
 
-/* ── Cabeçalho ── */
+/* ── Cabeçalho + ação rápida ── */
 .di-topo {
   background: var(--cor-acento);
   border-radius: 18px;
-  padding: 22px 24px;
+  padding: 20px 22px;
   color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
+
+.di-topo-texto { display: flex; flex-direction: column; gap: 3px; }
 
 .di-saudacao {
   font-size: 20px;
   font-weight: 700;
-  margin: 0 0 4px;
+  margin: 0;
   letter-spacing: -0.3px;
 }
 
 .di-data {
   font-size: 13px;
   margin: 0;
-  opacity: 0.82;
-  font-weight: 400;
+  opacity: 0.80;
 }
+
+/* Botões de ação rápida */
+.di-acoes-rapidas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.di-btn-rapido {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 11px 16px;
+  border-radius: 12px;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.di-btn-rapido:active { transform: scale(0.96); }
+
+.di-btn-icone { font-size: 16px; font-weight: 700; }
+
+.di-btn-receita {
+  background: rgba(255, 255, 255, 0.22);
+  color: #fff;
+}
+
+.di-btn-despesa {
+  background: rgba(0, 0, 0, 0.18);
+  color: #fff;
+}
+
+.di-btn-rapido:hover { opacity: 0.88; }
+
+/* ── Alerta atrasadas ── */
+.di-alerta {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: var(--cor-erro-fundo);
+  color: var(--cor-erro-texto);
+  border-radius: 12px;
+  padding: 11px 14px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.di-alerta-icone { font-size: 15px; flex-shrink: 0; }
 
 /* ── Cards de resumo ── */
 .di-cards {
@@ -190,23 +246,6 @@
 }
 
 .di-vazio p { margin: 0; }
-
-.di-btn-add {
-  padding: 8px 20px;
-  border-radius: 10px;
-  border: none;
-  background: var(--cor-acento);
-  color: #fff;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.15s, transform 0.15s;
-}
-
-.di-btn-add:hover {
-  background: var(--cor-acento-hover);
-  transform: translateY(-1px);
-}
 
 .di-mais {
   font-size: 12px;
