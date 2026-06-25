@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { adicionarTransacao, editarTransacao } from "../../firebase/transacoes";
+import { adicionarRecorrente } from "../../firebase/recorrentes";
 import { useMoeda } from "../../context/MoedaContext";
 
 const OPCOES_PARCELAS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
@@ -18,6 +19,11 @@ export default function ModalTransacao({ uid, transacao, aoFechar, tipoInicial =
   const [status, setStatus] = useState(transacao?.status || "pendente");
   const [formaPagamento, setFormaPagamento] = useState(transacao?.formaPagamento || "dinheiro");
   const [parcelas, setParcelas] = useState(transacao?.parcelasTotal || 1);
+  const [ehRecorrente, setEhRecorrente] = useState(false);
+  const [diaRecorrente, setDiaRecorrente] = useState(() => {
+    const d = new Date();
+    return String(d.getDate());
+  });
   const [salvando, setSalvando] = useState(false);
   const [erro, setErro] = useState("");
 
@@ -78,6 +84,19 @@ export default function ModalTransacao({ uid, transacao, aoFechar, tipoInicial =
           status,
           ...(tipo === "despesa" ? { formaPagamento } : {}),
         });
+      }
+
+      if (!editando && ehRecorrente) {
+        const diaNum = Number(diaRecorrente);
+        if (diaNum >= 1 && diaNum <= 31) {
+          await adicionarRecorrente(uid, {
+            nome: categoria.trim(),
+            tipo,
+            valor: Number(valor),
+            dia: diaNum,
+            formaPagamento: tipo === "despesa" ? formaPagamento : "dinheiro",
+          });
+        }
       }
 
       aoFechar();
@@ -157,6 +176,46 @@ export default function ModalTransacao({ uid, transacao, aoFechar, tipoInicial =
               onChange={(e) => setData(e.target.value)}
             />
           </div>
+
+          {/* Recorrência — só para novas transações não parceladas */}
+          {!editando && !(mostrarParcelas && parcelas > 1) && (
+            <div className="campo-modal">
+              <label>Frequência</label>
+              <div className="toggle-tipo">
+                <button
+                  type="button"
+                  className={`toggle-opcao ${!ehRecorrente ? "ativo" : ""}`}
+                  onClick={() => setEhRecorrente(false)}
+                >
+                  Pontual
+                </button>
+                <button
+                  type="button"
+                  className={`toggle-opcao ${ehRecorrente ? "ativo" : ""}`}
+                  onClick={() => {
+                    setEhRecorrente(true);
+                    setDiaRecorrente(data ? String(new Date(data + "T12:00:00").getDate()) : String(new Date().getDate()));
+                  }}
+                >
+                  Repetir todo mês
+                </button>
+              </div>
+              {ehRecorrente && (
+                <div className="recorrente-dia-row">
+                  <span className="recorrente-dia-label">Todo dia</span>
+                  <input
+                    type="number"
+                    className="recorrente-dia-input"
+                    min="1"
+                    max="31"
+                    value={diaRecorrente}
+                    onChange={(e) => setDiaRecorrente(e.target.value)}
+                  />
+                  <span className="recorrente-dia-label">de cada mês</span>
+                </div>
+              )}
+            </div>
+          )}
 
           {/* Status */}
           <div className="campo-modal">
