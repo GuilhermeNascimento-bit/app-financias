@@ -1,0 +1,428 @@
+/* ── Página ───────────────────────────────────────────────────────────────────── */
+
+.pagina-fluxo {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Navegação de mês ─────────────────────────────────────────────────────────── */
+
+.fluxo-nav-mes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.fluxo-titulo-mes {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--cor-texto-principal);
+  min-width: 190px;
+  text-align: center;
+  margin: 0;
+}
+
+.fluxo-btn-mes {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  border: 1px solid var(--cor-borda);
+  background: var(--cor-fundo-cartao);
+  color: var(--cor-texto-principal);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+  line-height: 1;
+}
+
+.fluxo-btn-mes:hover {
+  background: var(--cor-fundo-secao);
+}
+
+/* ── Resumo ───────────────────────────────────────────────────────────────────── */
+
+.fluxo-resumo {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+@media (max-width: 900px) {
+  .fluxo-resumo { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .fluxo-resumo { grid-template-columns: 1fr 1fr; }
+}
+
+.fluxo-resumo-item {
+  background: var(--cor-fundo-cartao);
+  border: 1px solid var(--cor-borda-cartao);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.fluxo-resumo-item.verde      { border-left: 3px solid #1d9e75; }
+.fluxo-resumo-item.verde-suave { border-left: 3px solid rgba(29,158,117,0.35); }
+.fluxo-resumo-item.vermelho   { border-left: 3px solid #e54b4b; }
+.fluxo-resumo-item.vermelho-suave { border-left: 3px solid rgba(229,75,75,0.35); }
+.fluxo-resumo-item.saldo      { border-left: 3px solid var(--cor-acento); }
+.fluxo-resumo-item.saldo.negativo { border-left-color: #e54b4b; }
+
+.fluxo-resumo-label {
+  font-size: 11px;
+  color: var(--cor-texto-secundario);
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.fluxo-resumo-valor {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--cor-texto-principal);
+}
+
+/* ── Grade de duas colunas ────────────────────────────────────────────────────── */
+
+.fluxo-grade {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .fluxo-grade { grid-template-columns: 1fr; }
+}
+
+/* ── Seção genérica ───────────────────────────────────────────────────────────── */
+
+.fluxo-secao {
+  background: var(--cor-fundo-cartao);
+  border: 1px solid var(--cor-borda-cartao);
+  border-radius: 16px;
+  padding: 18px;
+}
+
+.fluxo-secao-cab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.fluxo-secao-titulo {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--cor-texto-principal);
+  margin: 0;
+}
+
+.fluxo-abertura {
+  font-size: 12px;
+  color: var(--cor-texto-secundario);
+}
+
+.fluxo-abertura strong {
+  color: var(--cor-texto-principal);
+}
+
+.fluxo-btn-adicionar {
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 1px solid var(--cor-borda);
+  background: transparent;
+  color: var(--cor-acento);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.fluxo-btn-adicionar:hover {
+  background: var(--cor-acento-fundo-suave);
+}
+
+/* ── Lista de recorrentes ─────────────────────────────────────────────────────── */
+
+.fluxo-rec-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fluxo-rec-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--cor-borda-cartao);
+  background: var(--cor-fundo-secao);
+}
+
+.fluxo-rec-item.receita { border-left: 3px solid rgba(29,158,117,0.5); }
+.fluxo-rec-item.despesa { border-left: 3px solid rgba(229,75,75,0.5); }
+
+.fluxo-rec-seta {
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.fluxo-rec-seta.receita { color: #1d9e75; }
+.fluxo-rec-seta.despesa { color: #e54b4b; }
+
+.fluxo-rec-info { flex: 1; min-width: 0; }
+
+.fluxo-rec-nome {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cor-texto-principal);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fluxo-rec-det {
+  font-size: 11.5px;
+  color: var(--cor-texto-secundario);
+  margin: 2px 0 0;
+}
+
+.fluxo-rec-acoes {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.fluxo-rec-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  border: 1px solid var(--cor-borda);
+  background: transparent;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--cor-texto-secundario);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.fluxo-rec-btn.editar:hover {
+  background: var(--cor-acento-fundo-suave);
+  color: var(--cor-acento);
+  border-color: var(--cor-acento);
+}
+
+.fluxo-rec-btn.excluir:hover {
+  background: rgba(229,75,75,0.08);
+  color: #e54b4b;
+  border-color: rgba(229,75,75,0.3);
+}
+
+/* ── Timeline ─────────────────────────────────────────────────────────────────── */
+
+.fluxo-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fluxo-dia {
+  border-radius: 12px;
+  border: 1px solid var(--cor-borda-cartao);
+  overflow: hidden;
+}
+
+.fluxo-dia-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  background: var(--cor-fundo-secao);
+  border-bottom: 1px solid var(--cor-borda-cartao);
+}
+
+.fluxo-dia-id {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+}
+
+.fluxo-dia-num {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--cor-texto-principal);
+}
+
+.fluxo-dia-sem {
+  font-size: 10.5px;
+  color: var(--cor-texto-secundario);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.fluxo-dia-saldo {
+  font-size: 13.5px;
+  font-weight: 700;
+}
+
+.fluxo-dia-saldo.positivo { color: #1d9e75; }
+.fluxo-dia-saldo.negativo { color: #e54b4b; }
+
+/* ── Item do dia ──────────────────────────────────────────────────────────────── */
+
+.fluxo-dia-itens {
+  display: flex;
+  flex-direction: column;
+}
+
+.fluxo-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--cor-borda-cartao);
+  font-size: 13px;
+  transition: background 0.1s;
+}
+
+.fluxo-item:last-child { border-bottom: none; }
+.fluxo-item:hover { background: var(--cor-fundo-secao); }
+
+.fluxo-item.pendente { opacity: 0.7; }
+
+.fluxo-item-seta {
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+  width: 12px;
+  text-align: center;
+}
+
+.fluxo-item-seta.receita { color: #1d9e75; }
+.fluxo-item-seta.despesa { color: #e54b4b; }
+
+.fluxo-item-cat {
+  flex: 1;
+  color: var(--cor-texto-principal);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fluxo-badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 5px;
+  background: var(--cor-fundo-secao);
+  color: var(--cor-texto-secundario);
+  border: 1px solid var(--cor-borda);
+  flex-shrink: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+}
+
+.fluxo-badge.fixo {
+  color: var(--cor-acento);
+  background: var(--cor-acento-fundo-suave);
+  border-color: transparent;
+}
+
+.fluxo-badge.parcela {
+  color: #7c3aed;
+  background: rgba(124,58,237,0.1);
+  border-color: transparent;
+}
+
+.fluxo-item-valor {
+  font-weight: 600;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.fluxo-item-valor.receita { color: #1d9e75; }
+.fluxo-item-valor.despesa { color: #e54b4b; }
+
+.fluxo-item-dot {
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+.fluxo-item-dot.pago { color: #1d9e75; }
+.fluxo-item-dot.pendente { color: var(--cor-texto-secundario); }
+
+/* ── Botões confirmar / desfazer ──────────────────────────────────────────────── */
+
+.fluxo-btn-confirmar {
+  height: 24px;
+  padding: 0 10px;
+  border-radius: 6px;
+  border: 1px solid var(--cor-acento);
+  background: transparent;
+  color: var(--cor-acento);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.fluxo-btn-confirmar:hover {
+  background: var(--cor-acento);
+  color: #fff;
+}
+
+.fluxo-btn-confirmar:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.fluxo-btn-desfazer {
+  height: 24px;
+  padding: 0 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(29,158,117,0.4);
+  background: rgba(29,158,117,0.08);
+  color: #1d9e75;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.15s;
+}
+
+.fluxo-btn-desfazer:hover {
+  background: rgba(229,75,75,0.08);
+  color: #e54b4b;
+  border-color: rgba(229,75,75,0.3);
+}
+
+.fluxo-btn-desfazer:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+/* ── Vazio ────────────────────────────────────────────────────────────────────── */
+
+.fluxo-vazio {
+  font-size: 13px;
+  color: var(--cor-texto-secundario);
+  line-height: 1.65;
+}

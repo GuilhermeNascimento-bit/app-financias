@@ -1,0 +1,194 @@
+/* PaginaLogin.css */
+
+.tela-login {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--cor-fundo-pagina);
+  padding: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-sizing: border-box;
+}
+
+.cartao-login {
+  width: 100%;
+  max-width: 400px;
+  background: var(--cor-fundo-cartao);
+  border-radius: 16px;
+  border: 1px solid var(--cor-borda-cartao);
+  padding: 32px 24px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 480px) {
+  .tela-login {
+    padding: 12px;
+    align-items: flex-start;
+    padding-top: 32px;
+  }
+
+  .cartao-login {
+    border-radius: 14px;
+    padding: 28px 20px;
+    border: none;
+    box-shadow: var(--cor-sombra-cartao);
+  }
+}
+
+@media (max-width: 360px) {
+  .cartao-login {
+    padding: 24px 16px;
+  }
+}
+
+.cabecalho-login {
+  margin-bottom: 28px;
+}
+
+.marca-login {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--cor-texto-principal);
+}
+
+.marca-icone {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--cor-acento);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.cabecalho-login h1 {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0 0 6px;
+  color: var(--cor-texto-principal);
+}
+
+.subtitulo-login {
+  font-size: 14px;
+  color: var(--cor-texto-secundario);
+  margin: 0;
+  line-height: 1.5;
+}
+
+@media (max-width: 480px) {
+  .cabecalho-login {
+    margin-bottom: 24px;
+  }
+
+  .cabecalho-login h1 {
+    font-size: 20px;
+  }
+
+  .marca-login {
+    margin-bottom: 20px;
+  }
+}
+
+.formulario-login {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.campo label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--cor-texto-label);
+}
+
+.campo input {
+  height: 44px;
+  border-radius: 10px;
+  border: 1px solid var(--cor-borda);
+  padding: 0 14px;
+  font-size: 16px;
+  background: var(--cor-fundo-input);
+  color: var(--cor-texto-principal);
+  transition: border-color 0.15s ease, background 0.15s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.campo input::placeholder {
+  color: var(--cor-texto-secundario);
+}
+
+.campo input:focus {
+  outline: none;
+  border-color: var(--cor-acento);
+  background: var(--cor-fundo-input-foco);
+}
+
+.mensagem-erro {
+  background: var(--cor-erro-fundo);
+  color: var(--cor-erro-texto);
+  font-size: 13px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.botao-primario {
+  height: 46px;
+  border-radius: 10px;
+  border: none;
+  background: var(--cor-acento);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 4px;
+  transition: background 0.15s ease, opacity 0.15s ease;
+  width: 100%;
+}
+
+.botao-primario:hover:not(:disabled) {
+  background: var(--cor-acento-hover);
+}
+
+.botao-primario:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.rodape-login {
+  text-align: center;
+  font-size: 13px;
+  color: var(--cor-texto-secundario);
+  margin: 24px 0 0;
+}
+
+.link-alternar {
+  background: none;
+  border: none;
+  color: var(--cor-acento);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.link-alternar:hover {
+  text-decoration: underline;
+}

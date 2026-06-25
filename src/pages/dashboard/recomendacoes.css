@@ -1,0 +1,502 @@
+/* recomendacoes.css */
+
+.pagina-recomendacoes {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  animation: fadeUp 0.35s ease;
+}
+
+/* ── Títulos de seção ── */
+.titulo-secao {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--cor-texto-principal);
+  margin: 0 0 4px;
+}
+
+.subtitulo-secao {
+  font-size: 13px;
+  color: var(--cor-texto-secundario);
+  margin: 0 0 16px;
+}
+
+/* ── Dicas fixas ── */
+.secao-dicas {}
+
+.grade-dicas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+.card-dica {
+  background: var(--cor-fundo-cartao);
+  border: 1px solid var(--cor-borda-cartao);
+  border-radius: 14px;
+  padding: 18px;
+  animation: fadeUp 0.35s ease both;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-dica:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.card-dica-alerta {
+  border-left: 3px solid var(--cor-erro-texto);
+}
+
+.card-dica-atencao {
+  border-left: 3px solid var(--cor-alerta-texto);
+}
+
+.card-dica-positivo {
+  border-left: 3px solid var(--cor-acento);
+}
+
+.dica-topo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.dica-icone {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.dica-titulo {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cor-texto-principal);
+  margin: 0;
+}
+
+.dica-texto {
+  font-size: 13px;
+  color: var(--cor-texto-secundario);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.dica-reducao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding: 8px 12px;
+  background: var(--cor-fundo-secao);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--cor-texto-secundario);
+}
+
+.dica-reducao strong {
+  color: var(--cor-alerta-texto);
+  font-weight: 700;
+}
+
+/* ── Análise por IA ── */
+.secao-ia {
+  background: var(--cor-fundo-cartao);
+  border: 1px solid var(--cor-borda-cartao);
+  border-radius: 14px;
+  padding: 20px;
+  animation: fadeUp 0.4s ease 0.1s both;
+}
+
+.ia-cabecalho {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.botao-ia {
+  height: 40px;
+  padding: 0 18px;
+  border-radius: 10px;
+  border: 1px solid var(--cor-acento);
+  background: var(--cor-acento-fundo-suave);
+  color: var(--cor-acento);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.botao-ia:hover {
+  background: var(--cor-acento);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.ia-resultado {
+  margin-top: 16px;
+  border-top: 1px solid var(--cor-borda-cartao);
+  padding-top: 16px;
+  animation: fadeUp 0.3s ease;
+}
+
+.ia-carregando {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--cor-texto-secundario);
+  font-size: 14px;
+  padding: 12px 0;
+}
+
+.ia-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--cor-borda);
+  border-top-color: var(--cor-acento);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.ia-erro {
+  background: var(--cor-erro-fundo);
+  color: var(--cor-erro-texto);
+  font-size: 13px;
+  padding: 10px 12px;
+  border-radius: 8px;
+}
+
+.ia-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.ia-item {
+  font-size: 14px;
+  color: var(--cor-texto-principal);
+  line-height: 1.6;
+  padding: 10px 14px;
+  background: var(--cor-fundo-secao);
+  border-radius: 10px;
+  margin: 0;
+}
+
+.ia-paragrafo {
+  font-size: 13px;
+  color: var(--cor-texto-secundario);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.botao-ia-refazer {
+  background: none;
+  border: none;
+  color: var(--cor-acento);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.botao-ia-refazer:hover {
+  text-decoration: underline;
+}
+
+/* ── Planejador de metas ── */
+.secao-metas {
+  animation: fadeUp 0.4s ease 0.15s both;
+}
+
+.metas-cabecalho {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.botao-nova-meta {
+  height: 38px;
+  padding: 0 16px;
+  border-radius: 10px;
+  border: none;
+  background: var(--cor-acento);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.botao-nova-meta:hover {
+  background: var(--cor-acento-hover);
+  transform: translateY(-1px);
+}
+
+.metas-vazio {
+  text-align: center;
+  padding: 48px 32px;
+  background: var(--cor-fundo-cartao);
+  border: 1px solid var(--cor-borda-cartao);
+  border-radius: 14px;
+  color: var(--cor-texto-secundario);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.metas-vazio p:first-child {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.lista-metas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+.card-meta {
+  background: var(--cor-fundo-cartao);
+  border: 1px solid var(--cor-borda-cartao);
+  border-radius: 14px;
+  padding: 18px;
+  animation: fadeUp 0.35s ease both;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-meta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.meta-concluida {
+  border-color: var(--cor-acento);
+  background: var(--cor-acento-fundo-suave);
+}
+
+.meta-topo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.meta-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  min-width: 0;
+}
+
+.meta-emoji {
+  font-size: 24px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.meta-nome {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cor-texto-principal);
+  margin: 0 0 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.meta-prazo {
+  font-size: 12px;
+  color: var(--cor-texto-secundario);
+  margin: 0;
+}
+
+.meta-acoes {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.botao-acao-meta {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 1px solid var(--cor-borda);
+  background: var(--cor-fundo-secao);
+  color: var(--cor-texto-secundario);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.botao-acao-meta:hover {
+  background: var(--cor-acento);
+  border-color: var(--cor-acento);
+  color: #fff;
+}
+
+.botao-remover-meta:hover {
+  background: var(--cor-erro-fundo);
+  border-color: var(--cor-erro-texto);
+  color: var(--cor-erro-texto);
+}
+
+.meta-valores {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.meta-acumulado {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--cor-acento);
+}
+
+.meta-separador {
+  font-size: 12px;
+  color: var(--cor-texto-secundario);
+}
+
+.meta-total {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--cor-texto-secundario);
+}
+
+.barra-meta-fundo {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--cor-borda);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.barra-meta-progresso {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--cor-acento);
+  transition: width 0.5s ease;
+}
+
+.meta-rodape {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.meta-por-mes {
+  font-size: 13px;
+  color: var(--cor-texto-secundario);
+}
+
+.meta-por-mes strong {
+  color: var(--cor-texto-principal);
+}
+
+.meta-percentual {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cor-texto-secundario);
+}
+
+.meta-badge-concluida {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cor-acento);
+}
+
+/* Modal de nova meta */
+.modal-meta {}
+
+.grade-emojis {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.botao-emoji {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid var(--cor-borda);
+  background: var(--cor-fundo-input);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.botao-emoji:hover {
+  border-color: var(--cor-acento);
+  transform: scale(1.1);
+}
+
+.botao-emoji.ativo {
+  border-color: var(--cor-acento);
+  background: var(--cor-acento-fundo-suave);
+  transform: scale(1.1);
+}
+
+.preview-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  background: var(--cor-acento-fundo-suave);
+  border: 1px solid var(--cor-acento);
+  border-radius: 10px;
+  font-size: 13px;
+  color: var(--cor-texto-secundario);
+  animation: fadeUp 0.2s ease;
+}
+
+.preview-meta strong {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--cor-acento);
+}
+
+/* ── Responsivo ── */
+@media (max-width: 768px) {
+  .pagina-recomendacoes {
+    gap: 24px;
+  }
+
+  .grade-dicas,
+  .lista-metas {
+    grid-template-columns: 1fr;
+  }
+
+  .ia-cabecalho,
+  .metas-cabecalho {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .botao-ia,
+  .botao-nova-meta {
+    width: 100%;
+    justify-content: center;
+  }
+}

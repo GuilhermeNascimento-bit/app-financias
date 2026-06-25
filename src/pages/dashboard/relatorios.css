@@ -1,0 +1,226 @@
+.pagina-relatorios {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  animation: fadeUp 0.35s ease;
+}
+
+.cabecalho-relatorios {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filtro-periodo {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-exportar-pdf {
+  height: 36px;
+  padding: 0 18px;
+  border-radius: 10px;
+  border: 1px solid var(--cor-acento);
+  background: var(--cor-acento-fundo-suave);
+  color: var(--cor-acento);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.btn-exportar-pdf:hover:not(:disabled) {
+  background: var(--cor-acento);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.btn-exportar-pdf:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn-periodo {
+  height: 36px;
+  padding: 0 16px;
+  border-radius: 20px;
+  border: 1px solid var(--cor-borda);
+  background: var(--cor-fundo-cartao);
+  color: var(--cor-texto-secundario);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-periodo:hover {
+  border-color: var(--cor-acento);
+  color: var(--cor-acento);
+}
+
+.btn-periodo.ativo {
+  background: var(--cor-acento);
+  border-color: var(--cor-acento);
+  color: #fff;
+  font-weight: 600;
+}
+
+.grade-resumo-relatorio {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.card-relatorio {
+  background: var(--cor-fundo-cartao);
+  border: 1px solid var(--cor-borda-cartao);
+  border-radius: 14px;
+  padding: 18px 16px;
+  animation: fadeUp 0.35s ease both;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-relatorio:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.card-rel-label {
+  font-size: 11px;
+  color: var(--cor-texto-secundario);
+  margin: 0 0 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.card-rel-valor {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.card-rel-valor.positivo { color: var(--cor-sucesso-texto); }
+.card-rel-valor.negativo { color: var(--cor-alerta-texto); }
+.card-rel-valor.neutro   { color: var(--cor-texto-principal); }
+
+.cartao-relatorio {
+  background: var(--cor-fundo-cartao);
+  border: 1px solid var(--cor-borda-cartao);
+  border-radius: 14px;
+  padding: 20px;
+  animation: fadeUp 0.4s ease 0.1s both;
+}
+
+.titulo-relatorio {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cor-texto-principal);
+  margin: 0 0 16px;
+}
+
+.relatorio-vazio {
+  color: var(--cor-texto-secundario);
+  font-size: 14px;
+  text-align: center;
+  padding: 24px 0;
+  margin: 0;
+}
+
+/* Legenda manual (fora do ResponsiveContainer) */
+.legenda-grafico {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--cor-borda-cartao);
+}
+
+.legenda-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--cor-texto-secundario);
+}
+
+.legenda-cor {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Categoria breakdown */
+.lista-categorias {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.item-categoria {}
+
+.cat-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 6px;
+  gap: 12px;
+}
+
+.cat-nome {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--cor-texto-principal);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cat-valor {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cor-texto-principal);
+  flex-shrink: 0;
+}
+
+.barra-cat-fundo {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--cor-borda);
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+.barra-cat-progresso {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--cor-acento);
+  transition: width 0.5s ease;
+}
+
+.cat-pct {
+  font-size: 11px;
+  color: var(--cor-texto-secundario);
+}
+
+@media (max-width: 768px) {
+  .grade-resumo-relatorio {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .btn-periodo {
+    height: 32px;
+    padding: 0 12px;
+    font-size: 12px;
+  }
+}

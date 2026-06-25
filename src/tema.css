@@ -1,0 +1,105 @@
+/* tema.css */
+/* Variáveis de cor usadas em toda a aplicação (login, onboarding, dashboard).
+   O tema muda automaticamente com base na preferência do sistema
+   (prefers-color-scheme), sem precisar de botão ou JavaScript. */
+
+:root {
+  --cor-fundo-pagina: #f4f6f3;
+  --cor-fundo-cartao: #ffffff;
+  --cor-fundo-input: #fbfcfa;
+  --cor-fundo-input-foco: #ffffff;
+  --cor-fundo-secao: #f4f6f3;
+
+  --cor-texto-principal: #1f2920;
+  --cor-texto-secundario: #6b7268;
+  --cor-texto-label: #3a4039;
+
+  --cor-borda: #d9ddd6;
+  --cor-borda-cartao: #e4e7e0;
+
+  --cor-acento: #1d9e75;
+  --cor-acento-hover: #0f6e56;
+  --cor-acento-fundo-suave: #e1f5ee;
+
+  --cor-erro-fundo: #fcebeb;
+  --cor-erro-texto: #791f1f;
+
+  --cor-sucesso-texto: #0f6e56;
+  --cor-alerta-texto: #993c1d;
+
+  --cor-sombra-cartao: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+/* Override manual via data-tema="claro" (força tema claro sobre qualquer media query) */
+html[data-tema="claro"] {
+  --cor-fundo-pagina: #f4f6f3;
+  --cor-fundo-cartao: #ffffff;
+  --cor-fundo-input: #fbfcfa;
+  --cor-fundo-input-foco: #ffffff;
+  --cor-fundo-secao: #f4f6f3;
+  --cor-texto-principal: #1f2920;
+  --cor-texto-secundario: #6b7268;
+  --cor-texto-label: #3a4039;
+  --cor-borda: #d9ddd6;
+  --cor-borda-cartao: #e4e7e0;
+  --cor-acento: #1d9e75;
+  --cor-acento-hover: #0f6e56;
+  --cor-acento-fundo-suave: #e1f5ee;
+  --cor-erro-fundo: #fcebeb;
+  --cor-erro-texto: #791f1f;
+  --cor-sucesso-texto: #0f6e56;
+  --cor-alerta-texto: #993c1d;
+  --cor-sombra-cartao: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+/* Override manual via data-tema="escuro" */
+html[data-tema="escuro"] {
+  --cor-fundo-pagina: #15171a;
+  --cor-fundo-cartao: #1e2124;
+  --cor-fundo-input: #26292d;
+  --cor-fundo-input-foco: #2c3034;
+  --cor-fundo-secao: #26292d;
+  --cor-texto-principal: #ededee;
+  --cor-texto-secundario: #9aa09c;
+  --cor-texto-label: #c5c9c4;
+  --cor-borda: #34383c;
+  --cor-borda-cartao: #2e3236;
+  --cor-acento: #2bbf8e;
+  --cor-acento-hover: #3fd9a4;
+  --cor-acento-fundo-suave: rgba(43, 191, 142, 0.12);
+  --cor-erro-fundo: rgba(226, 75, 74, 0.12);
+  --cor-erro-texto: #f29a99;
+  --cor-sucesso-texto: #3fd9a4;
+  --cor-alerta-texto: #e8a978;
+  --cor-sombra-cartao: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* Tema escuro automático (sem override manual) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --cor-fundo-pagina: #15171a;
+    --cor-fundo-cartao: #1e2124;
+    --cor-fundo-input: #26292d;
+    --cor-fundo-input-foco: #2c3034;
+    --cor-fundo-secao: #26292d;
+
+    --cor-texto-principal: #ededee;
+    --cor-texto-secundario: #9aa09c;
+    --cor-texto-label: #c5c9c4;
+
+    --cor-borda: #34383c;
+    --cor-borda-cartao: #2e3236;
+
+    --cor-acento: #2bbf8e;
+    --cor-acento-hover: #3fd9a4;
+    --cor-acento-fundo-suave: rgba(43, 191, 142, 0.12);
+
+    --cor-erro-fundo: rgba(226, 75, 74, 0.12);
+    --cor-erro-texto: #f29a99;
+
+    --cor-sucesso-texto: #3fd9a4;
+    --cor-alerta-texto: #e8a978;
+
+    --cor-sombra-cartao: 0 1px 3px rgba(0, 0, 0, 0.4);
+  }
+}
