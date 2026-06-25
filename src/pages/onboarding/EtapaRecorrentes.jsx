@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useMoeda } from "../../context/MoedaContext";
+import { useMoeda, MOEDAS } from "../../context/MoedaContext";
 
 const SUGESTOES = [
   { nome: "Salário",           tipo: "receita", dia: 5,  formaPagamento: "dinheiro" },
@@ -17,7 +17,7 @@ const FORMAS = [
 ];
 
 export default function EtapaRecorrentes({ valoresIniciais, aoAvancar, aoVoltar }) {
-  const { moeda } = useMoeda();
+  const { moeda, formatarValor } = useMoeda();
 
   const [lista, setLista]               = useState(valoresIniciais || []);
   const [tipo, setTipo]                 = useState("despesa");
@@ -160,7 +160,7 @@ export default function EtapaRecorrentes({ valoresIniciais, aoAvancar, aoVoltar 
                 </span>
               </div>
               <span className="item-rec-valor">
-                {moeda.simbolo} {item.valor.toFixed(2)}
+                {formatarValor(item.valor)}
               </span>
               <button className="botao-remover-item" onClick={() => remover(i)}>×</button>
             </div>

@@ -21,10 +21,20 @@ export function MoedaProvider({ children }) {
   }
 
   function formatarValor(valor) {
-    return Number(valor).toLocaleString(moeda.locale, {
-      style: "currency",
-      currency: moeda.codigo,
-    });
+    const num = Number(valor) || 0;
+    const negativo = num < 0;
+    const abs = Math.abs(num);
+    const fixed = abs.toFixed(2);
+    const [intStr, decStr] = fixed.split(".");
+
+    // BRL e EUR: separador de milhar = "." e decimal = ","
+    // USD: separador de milhar = "," e decimal = "."
+    const sepMilhar = moeda.codigo === "USD" ? "," : ".";
+    const sepDecimal = moeda.codigo === "USD" ? "." : ",";
+
+    const intFormatado = intStr.replace(/\B(?=(\d{3})+(?!\d))/g, sepMilhar);
+    const resultado = `${moeda.simbolo} ${intFormatado}${sepDecimal}${decStr}`;
+    return negativo ? `-${resultado}` : resultado;
   }
 
   return (
